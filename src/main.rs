@@ -79,16 +79,15 @@ struct DialogState<'a> {
 }
 
 fn main() -> crossterm::Result<()> {
-    let harry = self::Character { name: "Harry" };
-
-    let hermione = self::Character { name: "Hermione" };
+    let alice = self::Character { name: "Алиса" };
+    let bob = self::Character { name: "Боб" };
 
     use Line::*;
     use Speaker::*;
     let dialog = Dialog {
         characters: hash_map! {
-            "alice" => hermione,
-            "bob" => harry
+            "alice" => alice,
+            "bob" => bob
         },
         lines: vec![
             Phrase {
@@ -96,11 +95,11 @@ fn main() -> crossterm::Result<()> {
                 phrases: vec!["Алиса, зевая, заходит в комнату Боба"],
             },
             Phrase {
-                speaker: Character("alice", Some("yawning")),
+                speaker: Character("alice", Some("зевает")),
                 phrases: vec!["Привет, Боб!"], // TODO: Вставка имени персонажа (это никакой не Боб, это Гарри)
             },
             Phrase {
-                speaker: Character("alice", Some("happy")),
+                speaker: Character("alice", Some("веселится")),
                 phrases: vec![
                     "Сегодня такой хороший день!\nС самого утра я чувствую воодушение и радость!",
                     "А как у тебя настроение?",
@@ -117,17 +116,17 @@ fn main() -> crossterm::Result<()> {
         marks: hash_map! {
         "happy_mood" => vec![
             Phrase {
-                speaker: Character("bob", Some("happy")),
+                speaker: Character("bob", Some("веселится")),
                 phrases: vec!["У меня сегодня нет никаких планов"],
             },
             Phrase {
-                speaker: Character("bob", Some("smile")),
+                speaker: Character("bob", Some("улыбается")),
                 phrases: vec!["Хочешь, пойдём погуляем?"],
             },
         ],
         "sad_mood" => vec![
             Phrase {
-                speaker: Character("bob", Some("sad")),
+                speaker: Character("bob", Some("грустит")),
                 phrases: vec!["Я хочу побыть один..."],
             },
         ]
@@ -221,6 +220,9 @@ fn show_menu<'a>(label: &str, opts: &[MenuOption<'a>], state: &mut DialogState<'
     for (i, opt) in opts.iter().enumerate() {
         println!("{}. {}", i + 1, opt.label);
     }
+
+    println!();
+    println!("Введите цифру и нажмите [Enter] для выбора варианта.");
 
     let stdin = io::stdin();
     let mut input = String::new();
