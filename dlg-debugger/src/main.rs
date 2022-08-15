@@ -402,7 +402,7 @@ fn dialog_ui<B: Backend>(f: &mut Frame<B>, app: &mut App) -> ViewMode {
     match line {
         Line::Phrase { speaker, lines } => {
             let name = match speaker {
-                Mention::Narrator => String::from("Narrator"),
+                Speaker::Narrator => String::from("Narrator"),
                 Speaker::Character(alias, state) => match state {
                     State::Default => alias.0.to_string(),
                     State::Named(state) => format!("{}: {}", alias.0, state),
