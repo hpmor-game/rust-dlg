@@ -1,8 +1,11 @@
 use std::fmt::Display;
 
+/// Section in dialog
 #[derive(Clone, Eq, Hash, PartialEq, Debug)]
 pub enum Section {
+    /// Initial section. Dialog starts from this
     Initial,
+    /// Named section in dialog
     Named(String),
 }
 

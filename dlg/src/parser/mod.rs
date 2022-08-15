@@ -11,44 +11,64 @@ use tokens::MentionToken;
 
 pub use section::Section;
 
+/// Character alias in dialog that maps to real character
 #[derive(PartialEq, Eq, Hash, Debug, Clone)]
 pub struct Alias(pub String);
 
+/// State of character
 #[derive(PartialEq, Eq, Hash, Debug, Clone)]
 pub enum State {
+    /// Default state
     Default,
+    /// Named state
     Named(String),
 }
 
+/// Requirements for character in dialog. Contains list of states that used in dialog
 #[derive(PartialEq, Debug, Default)]
 pub struct Requirements {
+    /// Required states
     pub states: Vec<State>,
 }
 
+/// Speaker in dialog. Can be Narrator of Character with alias and state
 #[derive(PartialEq, Eq, Hash, Debug, Clone)]
 pub enum Speaker {
+    /// Narrator speaks
     Narrator,
+    /// Character speaks
     Character(Alias, State),
 }
 
+/// Menu in dialog. Contains title and vec of options
 #[derive(PartialEq, Eq, Hash, Debug, Clone)]
 pub struct Menu {
+    /// Menu title
     pub title: Option<String>,
+    /// Menu options
     pub options: Vec<MenuOption>,
 }
 
+/// Menu option
 #[derive(PartialEq, Eq, Hash, Debug, Clone)]
 pub struct MenuOption {
+    /// Option title
     pub title: Option<String>,
-    pub args: String,
+    /// Option args. Will be replaced to collection of option effects
+    pub args: String, // TODO: replace to set of effects
 }
 
+/// Line in dialog
 #[derive(Eq, Hash, PartialEq, Debug)]
 pub enum Line {
+    /// CHaracted's phrases in dialog
     Phrase {
+        /// The one who utters the phrase
         speaker: Speaker,
+        /// A phrase. May consist of several parts that will be presented sequentially so as not to output too much text at a time
         lines: Vec<String>,
     }, // TODO: replace String to FormattedText,
+    /// Menu with options in dialog
     Menu(Menu),
 }
 
