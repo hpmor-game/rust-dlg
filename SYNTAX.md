@@ -14,10 +14,21 @@ TODO
 
 ```js
 @alice // set current speaking character to `alice`
+
+Text from Alice with default state
+
 @:calm // set `calm` state for current speaking character (in this example - alice)
-@alice:calm // sat current speaking character AND his state
+
+Text from calm Alice
+
+
+@alice:happy // sat current speaking character AND his state
+
+Text from happy Alice
 
 @ // narrator's text
+
+Text from narrator
 ```
 
 ## ✅ Sections and links
