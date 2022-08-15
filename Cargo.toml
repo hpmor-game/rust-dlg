@@ -1,10 +1,3 @@
-[package]
-name = "dialog-system"
-version = "0.1.0"
-edition = "2021"
+[workspace]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
-[dependencies]
-crossterm = "0.24"
-common_macros = "0.1.1"
+members = ["dlg", "dlg-debugger", "examples/console_player"]
