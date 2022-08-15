@@ -1,4 +1,4 @@
-pub use crate::parser::{Alias, Dialog, Line, Mention, Requirements, Section, State};
+pub use crate::parser::{Alias, Dialog, Line, Requirements, Section, Speaker, State};
 
 pub use crate::player::{Cursor, DialogState};
 

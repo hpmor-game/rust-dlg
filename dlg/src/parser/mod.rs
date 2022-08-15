@@ -26,7 +26,7 @@ pub struct Requirements {
 }
 
 #[derive(PartialEq, Eq, Hash, Debug, Clone)]
-pub enum Mention {
+pub enum Speaker {
     Narrator,
     Character(Alias, State),
 }
@@ -46,7 +46,7 @@ pub struct MenuOption {
 #[derive(Eq, Hash, PartialEq, Debug)]
 pub enum Line {
     Phrase {
-        speaker: Mention,
+        speaker: Speaker,
         lines: Vec<String>,
     }, // TODO: replace String to FormattedText,
     Menu(Menu),
@@ -66,8 +66,8 @@ impl Dialog {
             .and_then(|s| s.get(cursor.line_index()))
     }
 
-    fn ensure_character_requirement(&mut self, mention: &Mention) {
-        if let Mention::Character(alias, state) = mention {
+    fn ensure_character_requirement(&mut self, mention: &Speaker) {
+        if let Speaker::Character(alias, state) = mention {
             let req = self.characters.entry(alias.clone()).or_default();
 
             if let State::Named(_) = state {
@@ -79,7 +79,7 @@ impl Dialog {
     }
 
     fn parse_semantics(&mut self, semantics: Vec<SemanticToken>) -> Result<(), String> {
-        let mut current_mention = Mention::Narrator;
+        let mut current_mention = Speaker::Narrator;
         let mut current_section = Section::Initial;
 
         let mut current_menu: Option<Menu> = None;
@@ -94,12 +94,12 @@ impl Dialog {
                             self.characters.entry(Alias(name.clone())).or_default();
 
                             current_mention =
-                                Mention::Character(Alias(name.clone()), State::Default);
+                                Speaker::Character(Alias(name.clone()), State::Default);
 
                             self.ensure_character_requirement(&current_mention);
                         }
                         MentionToken::State(new_state) => {
-                            if let Mention::Character(_, state) = &mut current_mention {
+                            if let Speaker::Character(_, state) = &mut current_mention {
                                 // Это очень грустно, уберите клонирование пажалуста
                                 *state = State::Named(new_state.clone());
 
@@ -109,13 +109,13 @@ impl Dialog {
                             }
                         }
                         MentionToken::NameState(name, state) => {
-                            current_mention = Mention::Character(
+                            current_mention = Speaker::Character(
                                 Alias(name.clone()),
                                 State::Named(state.clone()),
                             );
                             self.ensure_character_requirement(&current_mention);
                         }
-                        MentionToken::Narrator => current_mention = Mention::Narrator,
+                        MentionToken::Narrator => current_mention = Speaker::Narrator,
                     };
                 }
                 SemanticToken::Link(name) => {
@@ -132,7 +132,7 @@ impl Dialog {
                     current_option = None;
 
                     current_section = Section::Named(name);
-                    current_mention = Mention::Narrator;
+                    current_mention = Speaker::Narrator;
                 }
 
                 SemanticToken::Text(lines) => {
