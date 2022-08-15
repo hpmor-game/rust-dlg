@@ -1,6 +1,6 @@
 # Syntax of .dlg files
 
-## Comments
+## ✅ Comments
 
 Comments, like as in many other languages, are declared with two slashes: ```//```
 
@@ -8,66 +8,74 @@ Comments, like as in many other languages, are declared with two slashes: ```//`
 Common text // comment
 ```
 
-## Characters and their states
+## ✅ Characters and their states
 
 TODO
 
 ```js
-@name // now character with alias @
-@:state // состояние
-@name:state // персонаж + состояние
+@alice // set current speaking character to `alice`
+@:calm // set `calm` state for current speaking character (in this example - alice)
+@alice:calm // sat current speaking character AND his state
 
-@ // описательный текст от рассказчика
+@ // narrator's text
 ```
 
-## Sections and links
+## ✅ Sections and links
 
 ```js
-#anchor // создание метки в этом файле
+// start of initial section
+
+Text in initial section
+
+#section_1 // end of initial section, start of section_1
+
+Text in section_1
+
+#section_2 // end of section_1, start of section_2
+
+Text in section_2
 ```
 
-## Перемещения по меткам
+## ⏳ Going between sections
 
 ```js
-:move #anchor // перемещение на метку в этом файле
-:back // возвращение на место, откуда было произведено последнее перемещение на метку
+:move #section_1 // go to section_1
+:back // go to previous section
 ```
 
-## Menus
+## 🔧 Menus
 
-Пример меню для перемещения между метками:
+Example of a menu for moving between sections:
 
 ```js
-:menu text
-:opt(#anchor) text // кнопка выбора, перемещающая на метку в этом файле
-:opt(#file/anchor) text // кнопка выбора, перемещающая на метку в другом файле
-:opt(:state; #anchor) text // кнопка выбора, перемещающая на метку, а при наведении изменяет состояние текущего персонажа
-:opt(@name:state; #anchor) text // кнопка выбора, перемещающая на метку, а при наведении изменяет состояние персонажа @name
+:menu Menu title
+:opt(#section_1) Go to section_1
+:opt(@alice:calm; #section_2) Go to section_1 and set current speaking character to @alice:calm
 ```
 
-Пример меню, для выбора значения локальной переменной:
+Example of a menu for selecting the value of a variable `var_name`:
 
 ```js
-:menu(var_name) text // текст меню
-:opt(=value) text // кнопка выбора, устанавливающая переменной var_name значение value
-:opt(=value2) text2 // кнопка выбора, устанавливающая var_name значение value2
-:opt(=value3; @name:state; #anchor) text3 // кнопка выбора, устанавливающая var_name значение value3, при наведении на кнопку устанавливает состояние персонажу и перемещает диалог на метку #anchor
+:menu(var_name) Menu title
+:opt(=value_1) Set var_name to value_1
+:opt(=value_2) Set var_name to value_2
+:opt(=value_3; @alice:calm; #section_1) Set var_name to value_2, set current speaking character to @alice:calm and go to section_1
 ```
 
-## Commands
+## ⏳ Commands
 
 ```js
-:event "event_name" // вызов ивента
+:event "event_name" // call an event
 ```
 
-## Conditions
+## ⏳ Conditions
 
 ```js
-:if condition1
-    Будет отрисовано, если condition1 == true
-:elseif condition2
-    Будет отрисовано, если condition2 == true
+:if condition_1
+    will be displayed only if condition_1 == true
+:elseif condition_2
+    will be displayed only if condition_2 == true
 :else
-    Будет отрисовано в противном случае
+    will be displayed else
 :endif
 ```
