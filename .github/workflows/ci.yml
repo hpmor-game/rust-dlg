@@ -16,9 +16,13 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build
-      run: cargo build --verbose
     - name: Lint
       run: cargo clippy --verbose
-    - name: Run tests
+    - name: Test
       run: cargo test --verbose
+    - name: Build
+      run: cargo build -p dlg-debugger --release --verbose
+    - uses: actions/upload-artifact@v3
+      with:
+        name: ubuntu-dlg-debugger
+        path: target/release/dlg-debugger
