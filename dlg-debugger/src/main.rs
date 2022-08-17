@@ -17,7 +17,7 @@ use std::io::ErrorKind;
 use std::path::{Path, PathBuf};
 use std::time::{Duration, Instant};
 use std::{error::Error, io, str::FromStr};
-use tui::widgets::{List, ListItem};
+use tui::widgets::{List, ListItem, Wrap};
 use tui::{
     backend::{Backend, CrosstermBackend},
     layout::{Constraint, Direction, Layout},
@@ -415,6 +415,7 @@ fn dialog_ui<B: Backend>(f: &mut Frame<B>, app: &mut App) -> ViewMode {
                 let line_part = &letters[0..app.state.animation.current];
 
                 let messages = Paragraph::new(line_part.join(""))
+                    .wrap(Wrap { trim: true })
                     .block(Block::default().borders(Borders::ALL).title(name));
                 f.render_widget(messages, chunks[2]);
 
