@@ -356,14 +356,14 @@ fn dialog_ui<B: Backend>(f: &mut Frame<B>, app: &mut App) -> ViewMode {
                 ]
             }
             InputMode::Menu { .. } => vec![
-                Span::raw("Используйте "),
+                Span::raw("Use "),
                 Span::styled(
-                    "Стрелки",
+                    "Arrows",
                     Style::default()
                         .fg(Color::Yellow)
                         .add_modifier(Modifier::BOLD),
                 ),
-                Span::raw(" для выбора варианта."),
+                Span::raw(" to change option."),
             ],
         },
         ViewMode::NextAnimationFrame => {
