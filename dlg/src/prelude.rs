@@ -22,7 +22,7 @@ macro_rules! character_requirements {
         #[allow(unused_mut)]
         let mut map = ::std::collections::HashMap::with_capacity(start_capacity);
         $(
-            map.insert(::dlg::prelude::Alias($key.to_string()), ::dlg::prelude::Requirements{
+            map.insert(::dlg::prelude::Alias($key.to_string()), ::dlg::prelude::Requirements {
                 states: {
                     let vec_capacity = $crate::const_expr_count!($($val);*);
                     #[allow(unused_mut)]
