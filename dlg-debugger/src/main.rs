@@ -189,7 +189,14 @@ fn select_file_ui<B: Backend>(f: &mut Frame<B>, files: &[PathBuf], selection: us
                     .fg(Color::Yellow)
                     .add_modifier(Modifier::BOLD),
             ),
-            Span::raw(" to select dialog."),
+            Span::raw(" to select dialog. Press "),
+            Span::styled(
+                "Enter",
+                Style::default()
+                    .fg(Color::Yellow)
+                    .add_modifier(Modifier::BOLD),
+            ),
+            Span::raw(" to play dialog."),
         ],
         Style::default(),
     );
