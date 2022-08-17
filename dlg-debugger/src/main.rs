@@ -183,7 +183,12 @@ fn select_file_ui<B: Backend>(f: &mut Frame<B>, files: &[PathBuf], selection: us
     let (msg, style) = (
         vec![
             Span::raw("Use "),
-            Span::styled("Arrows", Style::default().add_modifier(Modifier::BOLD)),
+            Span::styled(
+                "Arrows",
+                Style::default()
+                    .fg(Color::Yellow)
+                    .add_modifier(Modifier::BOLD),
+            ),
             Span::raw(" to select dialog."),
         ],
         Style::default().add_modifier(Modifier::RAPID_BLINK),
