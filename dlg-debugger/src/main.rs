@@ -191,7 +191,7 @@ fn select_file_ui<B: Backend>(f: &mut Frame<B>, files: &[PathBuf], selection: us
             ),
             Span::raw(" to select dialog."),
         ],
-        Style::default().add_modifier(Modifier::RAPID_BLINK),
+        Style::default(),
     );
 
     let mut text = Text::from(Spans::from(msg));
